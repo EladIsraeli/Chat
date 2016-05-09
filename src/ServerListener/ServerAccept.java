@@ -2,8 +2,9 @@ package ServerListener;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
-public abstract class ServerAccept implements Runnable{
+public class ServerAccept implements Runnable{
 	private ServerSocket acceptSocket;
 	private String address;
 	protected boolean isRunning;
@@ -11,7 +12,7 @@ public abstract class ServerAccept implements Runnable{
 	
 	public ServerAccept(String address, int port) throws IOException{
 		setAddress(address);
-		setAcceptSocket(new ServerSocket(port));
+		acceptSocket = new ServerSocket(port);
 		thread = new Thread(this);
 		
 	}
@@ -58,6 +59,15 @@ public abstract class ServerAccept implements Runnable{
 
 	public void run(){
 		while(isRunning){
+			try {
+				Socket socket = getAcceptSocket().accept();
+				Verification v = new Verification(socket);
+				v.startVerifing();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			
 		}
 		
