@@ -114,8 +114,17 @@ public class RegisterPage implements IManager {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-			   String username = usernameChooser.getText();
-			   String password = passwordChooser.getText();
+				   String username = usernameChooser.getText();
+				   String password = passwordChooser.getText();
+		    	if(idChooser.getText().length() < 1 || username.length() < 1 && password.length() < 1 || idChooser.getText().length() < 1){
+	        		typeNothing();
+	        		System.out.println("NO!!!");
+	        		return;
+	        		
+	        	}
+	        	
+				
+
 	           int id = Integer.parseInt(idChooser.getText());
 	           
 	            if (username.length() < 1 && password.length() < 1 && idChooser.getText().length() < 1) {
@@ -133,7 +142,21 @@ public class RegisterPage implements IManager {
 
 
       }
-      
+      void typeNothing(){
+	    	
+	    	preFrame = new JFrame(appName);
+	        JLabel failed = new JLabel();
+	        failed.setText("Error you have typed nothing!");
+
+	      	     
+	        preFrame.add(BorderLayout.CENTER, failed);
+	        preFrame.setSize(175, 175);
+	        preFrame.setVisible(true);
+	        
+	        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	        preFrame.setLocation(dim.width/2-preFrame.getSize().width/2, dim.height/2-preFrame.getSize().height/2);
+	    }
+	    
       
       public void registerCompleted(){
     	  
@@ -151,7 +174,6 @@ public class RegisterPage implements IManager {
 	 				public void actionPerformed(ActionEvent arg0) {
 	 					
 	 					preFrame.setVisible(false);
-	 					preFrame = null;
 	 					
 	 					mainPage.preFrame.setVisible(true);
 	 				}
@@ -160,7 +182,7 @@ public class RegisterPage implements IManager {
 	 	        	
 	 	        });
 	 	     
-	 	        preFrame.add(BorderLayout.SOUTH, buttonToFirstPage);
+	 	    preFrame.add(BorderLayout.SOUTH, buttonToFirstPage);
 	        preFrame.add(BorderLayout.CENTER, succeed);
 	        preFrame.setSize(300, 300);
 	        preFrame.setVisible(true);
@@ -186,7 +208,6 @@ public class RegisterPage implements IManager {
 				public void actionPerformed(ActionEvent arg0) {
 					
 					preFrame.setVisible(false);
-					preFrame = null;
 					
 					mainPage.preFrame.setVisible(true);
 				}

@@ -344,6 +344,23 @@ import LoginStructs.LoginAccount;
 	        
 	        
 	    }
+	    
+	    void typeNothing(){
+	    	
+	    	preFrame = new JFrame(appName);
+	        JLabel failed = new JLabel();
+	        failed.setText("Error you have typed nothing!");
+
+	      	     
+	        preFrame.add(BorderLayout.CENTER, failed);
+	        preFrame.setSize(175, 175);
+	        preFrame.setVisible(true);
+	        
+	        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	        preFrame.setLocation(dim.width/2-preFrame.getSize().width/2, dim.height/2-preFrame.getSize().height/2);
+	    }
+	    
+	    
 
 	    class sendMessageButtonListener implements ActionListener {
 	    	
@@ -376,17 +393,40 @@ import LoginStructs.LoginAccount;
 	        }
 	    }
 
+	    public static boolean isIntegerParseInt(String str) {
+	        try {
+	            Integer.parseInt(str);
+	            return true;
+	        } catch (NumberFormatException nfe) {}
+	        return false;
+	    }
+	    
 	    String  username;
 	    int id;
 	    class enterServerButtonListener implements ActionListener {
 	
 	        public void actionPerformed(ActionEvent event) {
-	            username = usernameChooser.getText();
-	            id = Integer.parseInt(idChooser.getText());
+	        	
 	            String password = passwordChooser.getText();
-	            if (username.length() < 1 && password.length() < 1) {
-	                System.out.println("No!");
-	   
+	            username = usernameChooser.getText();
+	     
+	        	if(idChooser.getText().length() < 1 || password.length() < 1 || idChooser.getText().length() < 1){
+	        		typeNothing();
+	        		System.out.println("NO!!!");
+	        		return;
+	        		
+	        	}
+	        	
+	        	if(!isIntegerParseInt(idChooser.getText())){
+	        		typeNothing();
+	        		return;
+	        	}
+	        	
+	            id = Integer.parseInt(idChooser.getText());
+	     
+	            if (username.length() < 1 && password.length() < 1 && idChooser.getText().length() < 1) {
+	                System.out.println("No!!!");
+	                
 	                
 	               
 	            } else {
@@ -435,7 +475,7 @@ import LoginStructs.LoginAccount;
 				public void actionPerformed(ActionEvent arg0) {
 					
 					preFrame.setVisible(false);
-					preFrame = null;
+					
 					
 					mainPage.preFrame.setVisible(true);
 				}
