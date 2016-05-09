@@ -18,11 +18,13 @@ public class ClientReaderThread extends AbstractReaderThread{
 		
 		try {
 			 inputString = input.readUTF();
+			 System.out.println("bla");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		clientManager.incommingMessage(inputString);
+
 
 			if(inputString.equals("10")){
 				setRunning(false);

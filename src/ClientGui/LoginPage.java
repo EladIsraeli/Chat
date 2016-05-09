@@ -425,7 +425,7 @@ import LoginStructs.LoginAccount;
 
 		@Override
 		public void incommingMessage(String s) {
-			System.out.println(s);
+			System.out.println("Icoming " + s);
 			if(s.equals("9")){
 				 preFrame.setVisible(false);
 	             chatList();
