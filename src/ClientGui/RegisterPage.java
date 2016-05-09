@@ -52,11 +52,14 @@ public class RegisterPage implements IManager {
 		Client client;
 		String appName = "Elad Israeli Chat v0.1";
 		
+		MainPage mainPage;
+		
+		
 		public static int port = 33333;
 
       JScrollPane scrollpane;
-      public RegisterPage() {
-         
+      public RegisterPage(MainPage mainPage) {
+         this.mainPage = mainPage;
     	  
     	  	preFrame = new JFrame(appName);
 	        usernameChooser = new JTextField(15);
@@ -89,6 +92,12 @@ public class RegisterPage implements IManager {
 	        
 	        prePanel.add(chooseIdLabel, preLeft);
 	        prePanel.add(idChooser, preRight);
+	        
+	        
+	        JLabel LoginLabel = new JLabel();
+	        LoginLabel.setText("Registeration Page");
+	        
+	        preFrame.add(BorderLayout.NORTH, LoginLabel);
 	        
 	        preFrame.add(BorderLayout.CENTER, prePanel);
 	        preFrame.add(BorderLayout.SOUTH, enterServer);
@@ -133,7 +142,25 @@ public class RegisterPage implements IManager {
 	        JLabel succeed = new JLabel();
 	        succeed.setText("Register Succeeded!!");
 
-	     
+	        JButton buttonToFirstPage = new JButton();
+	 	   buttonToFirstPage.setText("Back To First Page");     
+	        
+	 	        buttonToFirstPage.addActionListener(new ActionListener(){
+
+	 				@Override
+	 				public void actionPerformed(ActionEvent arg0) {
+	 					
+	 					preFrame.setVisible(false);
+	 					preFrame = null;
+	 					
+	 					mainPage.preFrame.setVisible(true);
+	 				}
+	 	        	
+	 	        	
+	 	        	
+	 	        });
+	 	     
+	 	        preFrame.add(BorderLayout.SOUTH, buttonToFirstPage);
 	        preFrame.add(BorderLayout.CENTER, succeed);
 	        preFrame.setSize(300, 300);
 	        preFrame.setVisible(true);
@@ -150,7 +177,25 @@ public class RegisterPage implements IManager {
 	        JLabel failed = new JLabel();
 	        failed.setText("Register Failed!!");
 
+       JButton buttonToFirstPage = new JButton();
+	   buttonToFirstPage.setText("Back To First Page");     
+       
+	        buttonToFirstPage.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					
+					preFrame.setVisible(false);
+					preFrame = null;
+					
+					mainPage.preFrame.setVisible(true);
+				}
+	        	
+	        	
+	        	
+	        });
 	     
+	        preFrame.add(BorderLayout.SOUTH, buttonToFirstPage);
 	        preFrame.add(BorderLayout.CENTER, failed);
 	        preFrame.setSize(300, 300);
 	        preFrame.setVisible(true);
@@ -197,21 +242,21 @@ public class RegisterPage implements IManager {
 		}
 	    
       
-      public static void main(String [] args){
-    	  SwingUtilities.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                try {
-	                    UIManager.setLookAndFeel(UIManager
-	                            .getSystemLookAndFeelClassName());
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	                RegisterPage mainGUI = new RegisterPage();
-	            }
-	            
-    	  });
-      }
+//      public static void main(String [] args){
+//    	  SwingUtilities.invokeLater(new Runnable() {
+//	            @Override
+//	            public void run() {
+//	                try {
+//	                    UIManager.setLookAndFeel(UIManager
+//	                            .getSystemLookAndFeelClassName());
+//	                } catch (Exception e) {
+//	                    e.printStackTrace();
+//	                }
+//	                RegisterPage mainGUI = new RegisterPage();
+//	            }
+//	            
+//    	  });
+//      }
       
       
   	@Override

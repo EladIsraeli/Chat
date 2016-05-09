@@ -49,7 +49,7 @@ private static ClientsRepository firstInstance = null;
 		Gson gson = new Gson();
 		
 		ComMessage msg = gson.fromJson(s, ComMessage.class);
-		Client c = clients.get(msg.getSender());
+		Client c = clients.get(msg.getReciever());
 		c.getWriterThread().writeToClient(s);
 		
 	}

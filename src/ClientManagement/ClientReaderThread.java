@@ -14,6 +14,8 @@ public class ClientReaderThread extends AbstractReaderThread{
 	@Override
 	public void run() {
 		
+		boolean flag = false;
+		
 		String inputString = null;
 		
 		try {
@@ -24,7 +26,7 @@ public class ClientReaderThread extends AbstractReaderThread{
 			e1.printStackTrace();
 		}
 		clientManager.incommingMessage(inputString);
-
+		
 
 			if(inputString.equals("10")){
 				setRunning(false);
@@ -36,13 +38,18 @@ public class ClientReaderThread extends AbstractReaderThread{
 		
 		while(isRunning()){
 			
-			clientManager.incommingMessage(inputString);
 			try {
 				inputString = input.readUTF();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+				clientManager.incommingMessage(inputString);
+			
+			
+		
+			
 		}
 		
 	}

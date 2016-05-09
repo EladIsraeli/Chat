@@ -53,7 +53,7 @@ import LoginStructs.LoginAccount;
 	    JTextField userByIdField;
 	    JFrame preFrame;
 	    
-	    
+	    MainPage mainPage;
 	    
 	    
 	    static int port = 33333;
@@ -62,8 +62,14 @@ import LoginStructs.LoginAccount;
 	    Client client;
 
 	    
+	    public LoginPage(MainPage mainPage){
+	    	accounts = new ArrayList<Integer>();
+	    	this.mainPage = mainPage;
+	    }
+	    
 	    public LoginPage(){
 	    	accounts = new ArrayList<Integer>();
+	  
 	    }
 	    
 	    
@@ -137,6 +143,11 @@ import LoginStructs.LoginAccount;
 	        prePanel.add(chooseIdLabel, preLeft);
 	        prePanel.add(idChooser, preRight);
 	        
+	        
+	        JLabel LoginLabel = new JLabel();
+	        LoginLabel.setText("Login Page");
+	        
+	        preFrame.add(BorderLayout.NORTH, LoginLabel);
 	        preFrame.add(BorderLayout.CENTER, prePanel);
 	        preFrame.add(BorderLayout.SOUTH, enterServer);
 	        preFrame.setSize(300, 300);
@@ -343,7 +354,7 @@ import LoginStructs.LoginAccount;
 	        }
 
 			public void actionPerformed(ActionEvent event) {
-	        	ComMessage msg = new ComMessage(messageBox.getText(), id, client.getId(), client.getName());
+	        	ComMessage msg = new ComMessage(messageBox.getText(), client.getId(), this.id, client.getName());
 	        	Gson gson = new Gson();
 	        	String toSend = gson.toJson(msg);
 	        	client.getWriterThread().writeToClient(toSend);
@@ -354,7 +365,7 @@ import LoginStructs.LoginAccount;
 	                chatBox.setText("Cleared all messages\n");
 	                messageBox.setText("");
 	            } else {
-	                chatBox.append("<" + id + ">:  " + messageBox.getText()
+	                chatBox.append("<" + client.getId() + ">:  " + messageBox.getText()
 	                        + "\n");
 	                messageBox.setText("");
 	            }
@@ -414,7 +425,26 @@ import LoginStructs.LoginAccount;
 	        JLabel failed = new JLabel();
 	        failed.setText("Login Failed!!");
 
+	        
+	        JButton buttonToFirstPage = new JButton();
+	        buttonToFirstPage.setText("Back To First Page");
+	        
+	        buttonToFirstPage.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					
+					preFrame.setVisible(false);
+					preFrame = null;
+					
+					mainPage.preFrame.setVisible(true);
+				}
+	        	
+	        	
+	        	
+	        });
 	     
+	        preFrame.add(BorderLayout.SOUTH, buttonToFirstPage);
 	        preFrame.add(BorderLayout.CENTER, failed);
 	        preFrame.setSize(300, 300);
 	        preFrame.setVisible(true);
